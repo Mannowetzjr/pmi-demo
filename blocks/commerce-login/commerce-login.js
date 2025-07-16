@@ -4,6 +4,8 @@ import { SignIn } from '@dropins/storefront-auth/containers/SignIn.js';
 import { render as authRenderer } from '@dropins/storefront-auth/render.js';
 import { checkIsAuthenticated } from '../../scripts/configs.js';
 import { CUSTOMER_ACCOUNT_CREATE_PATH, CUSTOMER_FORGOTPASSWORD_PATH, CUSTOMER_ACCOUNT_PATH } from '../../scripts/constants.js';
+import { h, render } from '@dropins/tools/preact.js';
+import CredentialManager from './CredentialManager.js';
 
 // Initialize
 import '../../scripts/initializers/auth.js';
@@ -18,5 +20,10 @@ export default async function decorate(block) {
       routeForgotPassword: () => CUSTOMER_FORGOTPASSWORD_PATH,
       routeRedirectOnSignIn: () => CUSTOMER_ACCOUNT_PATH,
     })(block);
+
+    // Inject CredentialManager widget
+    const credDiv = document.createElement('div');
+    document.body.appendChild(credDiv);
+    render(h(CredentialManager, {}), credDiv);
   }
 }

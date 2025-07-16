@@ -10,3 +10,16 @@ body.columns main > .section > div.commerce-order-header-wrapper {
     display: inline-block;
     margin-bottom: var(--spacing-medium);
 }
+
+.order-card-container {
+    margin-top: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+}
+
+/* Ensure consistent styling with orders list */
+.order-card-container :global(.orders-list-card) {
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-medium);
+    background-color: var(--color-white);
+}
