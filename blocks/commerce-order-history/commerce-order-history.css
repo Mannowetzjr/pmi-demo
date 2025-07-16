@@ -1,0 +1,95 @@
+.commerce-order-history {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--spacing-m);
+}
+
+/* Order list container */
+.commerce-order-history .orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+}
+
+/* Individual order item */
+.commerce-order-history .order-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-m);
+  background-color: var(--background-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.commerce-order-history .order-item:hover {
+  box-shadow: var(--shadow-light);
+}
+
+/* Order header with number and date */
+.commerce-order-history .order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-s);
+  padding-bottom: var(--spacing-s);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Order details grid */
+.commerce-order-history .order-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+}
+
+/* Status indicators */
+.commerce-order-history .order-status {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-s);
+  border-radius: var(--border-radius);
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-600);
+}
+
+.commerce-order-history .order-status.complete {
+  background-color: var(--color-green-100);
+  color: var(--color-green-800);
+}
+
+.commerce-order-history .order-status.processing {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-800);
+}
+
+.commerce-order-history .order-status.pending {
+  background-color: var(--color-yellow-100);
+  color: var(--color-yellow-800);
+}
+
+/* Loading state */
+.commerce-order-history .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Empty state */
+.commerce-order-history .empty-state {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .commerce-order-history .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .commerce-order-history .order-details {
+    grid-template-columns: 1fr;
+  }
+} 
