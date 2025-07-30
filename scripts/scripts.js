@@ -295,6 +295,19 @@ async function loadLazy(doc) {
 
   trackHistory();
 
+  // Inject credential manager on all pages (development tool)
+  try {
+    const { h, render } = await import('@dropins/tools/preact.js');
+    const { default: CredentialManager } = await import('../blocks/credential-manager/CredentialManager.js');
+    
+    const credDiv = document.createElement('div');
+    credDiv.className = 'credential-manager-global';
+    document.body.appendChild(credDiv);
+    render(h(CredentialManager, {}), credDiv);
+  } catch (error) {
+    console.warn('Credential Manager could not be loaded:', error);
+  }
+
   // Implement experimentation preview pill
   if ((getMetadata('experiment')
     || Object.keys(getAllMetadata('campaign')).length
