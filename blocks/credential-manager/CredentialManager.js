@@ -53,6 +53,8 @@ export default function CredentialManager() {
   const autofill = (user) => {
     const emailField = document.querySelector('input[name="email"]');
     const passwordField = document.querySelector('input[name="password"]');
+    const firstNameField = document.querySelector('input[name="firstName"]');
+    const lastNameField = document.querySelector('input[name="lastName"]');
     
     if (emailField) {
       emailField.value = user.email;
@@ -64,6 +66,18 @@ export default function CredentialManager() {
       passwordField.value = user.password;
       passwordField.dispatchEvent(new Event('input', { bubbles: true }));
       passwordField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    if (firstNameField && user.firstName) {
+      firstNameField.value = user.firstName;
+      firstNameField.dispatchEvent(new Event('input', { bubbles: true }));
+      firstNameField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    if (lastNameField && user.lastName) {
+      lastNameField.value = user.lastName;
+      lastNameField.dispatchEvent(new Event('input', { bubbles: true }));
+      lastNameField.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     setShowModal(false);
@@ -101,8 +115,8 @@ export default function CredentialManager() {
       background: 'white',
       borderRadius: '8px',
       padding: '24px',
-      minWidth: '320px',
-      maxWidth: '90vw',
+      minWidth: '580px',
+      maxWidth: '720px',
       boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
     },
     userList: {
@@ -111,16 +125,52 @@ export default function CredentialManager() {
       overflowY: 'auto',
     },
     userRow: {
-      display: 'flex',
+      display: 'grid',
+      gridTemplateColumns: '1fr 1.5fr auto',
       alignItems: 'center',
-      justifyContent: 'space-between',
       marginBottom: '8px',
-      gap: '8px',
+      gap: '16px',
+      padding: '8px 0',
     },
     actions: {
       display: 'flex',
       gap: '8px',
-      marginTop: '8px',
+      justifyContent: 'flex-end',
+    },
+    userEmail: {
+      font: 'var(--type-body-2-default-font, inherit)',
+      letterSpacing: 'var(--type-body-2-default-letter-spacing, normal)',
+      color: 'var(--color-neutral-800, #3d3d3d)',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      minWidth: 0, // Allows text to shrink in grid
+    },
+    userName: {
+      font: 'var(--type-body-2-default-font, inherit)',
+      letterSpacing: 'var(--type-body-2-default-letter-spacing, normal)',
+      color: 'var(--color-neutral-800, #3d3d3d)',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      minWidth: 0, // Allows text to shrink in grid
+    },
+    headerRow: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1.5fr auto',
+      alignItems: 'center',
+      gap: '16px',
+      padding: '8px 0',
+      borderBottom: '1px solid var(--color-neutral-300, #e8e8e8)',
+      marginBottom: '8px',
+      fontWeight: 600,
+      color: 'var(--color-neutral-700, #666)',
+      fontSize: '14px',
+      position: 'sticky',
+      top: 0,
+      backgroundColor: 'white',
+      zIndex: 10,
+      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
     },
     // Primary button styles (for Autofill)
     primaryButton: {
@@ -180,11 +230,17 @@ export default function CredentialManager() {
         error && h('div', { style: { color: 'red' } }, `Error: ${error}`),
         h('div', { style: styles.userList }, [
           users.length === 0 && !error && h('div', null, 'No users available.'),
+          users.length > 0 && h('div', { style: styles.headerRow }, [
+            h('span', null, 'Description'),
+            h('span', null, 'Email Address'),
+            h('span', null, 'Action'),
+          ]),
           users.map((user, idx) => h('div', {
             key: idx,
             style: styles.userRow,
           }, [
-            h('span', null, user.email),
+            h('span', { style: styles.userName }, user.description || 'N/A'),
+            h('span', { style: styles.userEmail }, user.email),
             h('div', { style: styles.actions }, [
               h('button', {
                 type: 'button',

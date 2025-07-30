@@ -7,6 +7,7 @@ A reusable development tool that provides quick access to test credentials for f
 - Floating button interface that appears on any page
 - **Automatically hides when user is logged in** - Only shows for unauthenticated users
 - Modal with list of available test credentials
+- **Sticky table header** - Header remains visible when scrolling through user list
 - One-click autofill for email and password fields
 - Consistent styling with storefront design system
 - Framework-agnostic implementation
@@ -33,10 +34,12 @@ The block reads credentials from `/data/credential-manager-users.json`:
 ```json
 [
   {
+    "name": "John Doe - User",
     "email": "test@example.com",
     "password": "Password1"
   },
   {
+    "name": "Admin User",
     "email": "admin@example.com", 
     "password": "AdminPass123"
   }
@@ -62,6 +65,8 @@ The credential manager automatically detects user authentication state:
 The block uses the storefront design system:
 - **Primary buttons** (Autofill) - Brand colors with hover effects
 - **Tertiary buttons** (Close) - Minimal styling with underline on hover
+- **Sticky header** - Fixed table header with shadow for scrollable user list
+- **CSS Grid layout** - Consistent column widths and professional table structure
 - **CSS Variables** - Inherits from design tokens for consistency
 
 ## Files
